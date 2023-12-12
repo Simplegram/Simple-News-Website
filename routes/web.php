@@ -24,3 +24,5 @@ Route::get('/register', function (){
 Route::get('/login', function (){
     return view('account.login');
 });
+
+Route::get('/news', [NewsController::class, 'getTopHeadlines']);
