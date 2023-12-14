@@ -20,9 +20,9 @@ class NewsController extends Controller
         $this->users = new User();
     }
 
-    public function loadNewsJSON(Request $request){
+    public function loadNewsJSON(Request $request, String $query){
         $apiKey = 'c5477f93c91c4229aaff8b842268f3cf';
-        $url = 'https://newsapi.org/v2/everything?q=berita+indonesia&apiKey=' . $apiKey;
+        $url = 'https://newsapi.org/v2/everything?q=' . $query . '&apiKey=' . $apiKey;
         $ua = $request->server('HTTP_USER_AGENT');
 
         $curl = curl_init();
@@ -84,7 +84,27 @@ class NewsController extends Controller
         $user = $this->users->find($value);
 
         $headline = $this->loadHeadlineJSON($request);
-        $newsData = $this->loadNewsJSON($request);
+        $newsData = $this->loadNewsJSON($request, "berita+indonesia+terkini");
+
+        return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'user' => $user]);
+    }
+
+    public function loadTechNews(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $headline = $this->loadHeadlineJSON($request);
+        $newsData = $this->loadNewsJSON($request, "berita+teknologi");
+
+        return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'user' => $user]);
+    }
+
+    public function loadSportNews(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $headline = $this->loadHeadlineJSON($request);
+        $newsData = $this->loadNewsJSON($request, "berita+olahraga");
 
         return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'user' => $user]);
     }

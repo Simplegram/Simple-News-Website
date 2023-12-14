@@ -30,13 +30,13 @@
                     <a class="nav-link active" aria-current="page" href="#"></a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/newslist">News</a>
+                    <a class="nav-link" href="/news">News</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Technology</a>
+                    <a class="nav-link" href="/news/technology">Technology</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sport</a>
+                        <a class="nav-link" href="/news/sport">Sport</a>
                     </li>
                 </ul>
 

@@ -15,6 +15,7 @@
 
                     {{ __('You are logged in as') }}
                     {{ $user['name'] }}
+                    <a href="/news">Show News</a>
                 </div>
             </div>
         </div>
