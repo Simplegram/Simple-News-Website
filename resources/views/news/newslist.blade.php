@@ -1,28 +1,46 @@
-@extends('template.master')
+@extends('layouts.app')
 
 @section('title', 'News List')
 
 @section('content')
-    <h1>Top Headlines</h1>
-
-    <div class="row">
-        @if(isset($newsData['articles']))
-            @foreach($newsData['articles'] as $article)
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        @if(isset($article['urlToImage']))
-                            <img class="card-img-top" src="{{ $article['urlToImage'] }}" alt="Card image cap">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-between align-items-center breaking-news bg-white">
+                    <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    @php($i = 0)
+                    @foreach ($headline['articles'] as $news)
+                        @if($i == 5) @break
                         @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $article['title'] }}</h5>
-                            <p class="card-text">{{ $article['description'] }}</p>
-                            <a href="{{ $article['url'] }}" class="btn btn-primary" target="_blank">Read More</a>
-                        </div>
+                        |
+                        <a href={{ $news['url'] }}>{{ $news['title'] }}</a>
+                        @php($i++)
+                    @endforeach
+                    </marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-2">
+        <h1>News</h1>
+        <div class="row m-2">
+            @php($i = 0)
+            @foreach ($newsData['articles'] as $news)
+                @if($i == 10) @break
+                @endif
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <img style="width: 160px" src={{ $news['urlToImage'] }} alt={{ $news['title'] }}>
+                        <a href={{ $news['url'] }}>{{ $news['title'] }}</a>
+                    </div>
+                    <div class="card-body">
+                        {{ $news['description'] }}
+                        <a href={{ $news['url'] }}>Read More</a>
                     </div>
                 </div>
+                @php($i++)
             @endforeach
-        @else
-            <p>No news available.</p>
-        @endif
+        </div>
     </div>
+    
 @endsection

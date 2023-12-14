@@ -1,12 +1,33 @@
-@extends('template.master')
-@section('title', 'Home Page')
+@extends('layouts.app')
+
 @section('content')
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+<div class="container">
+    <div class="row justify-content-center">
+        @if ($user['name'])
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
+
+                <div class="card-body">
+                        <!-- <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div> -->
+
+                    {{ __('You are logged in as') }}
+                    {{ $user['name'] }}
+                </div>
+            </div>
+        </div>
+        @else
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Welcome to TechNews') }}</div>
+                <div class="card-body">
+                    {{ __('You can browse news as guest or saved news by registering an account') }}
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
-  </div>
+</div>
 @endsection

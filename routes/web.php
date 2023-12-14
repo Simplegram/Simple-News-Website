@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function (){
+//     return view('home');
+// });
 
-Route::get('/register', function (){
-    return view('account.register');
-});
+Route::get('/news', [NewsController::class, 'load']);
 
-Route::get('/login', function (){
-    return view('account.login');
-});
+Auth::routes();
 
-Route::get('/news', [NewsController::class, 'getTopHeadlines']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
