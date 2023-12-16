@@ -1,103 +1,43 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: "DM Mono";
+body {
+    background-color: #f8f9fa;
 }
 
-.background {
-    background-color: #d9d9d9;
-    max-height: max-content;
-    min-height: min-content;
-    justify-content: center;
-    display: flex;
+.container {
+    margin-top: 50px;
 }
 
-.center {
-    padding-top: 7%;
-    padding-bottom: 5%;
-    width: 400px;
-    border-radius: 20px;
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-.center h1 {
-    text-align: center;
-    padding: 0 0 5% 0;
-    color: black;
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: 1px solid #ccc;
 }
 
-.center form {
-    padding: 0 10%;
-    /* box-sizing: border-box; */
+.card-body {
+    padding: 20px;
 }
 
-form .txt {
-    position: relative;
-    border-bottom: 5px solid black;
-    margin: 5% 0;
-    margin-bottom: 2%;
-    height: 20%;
+.form-control {
+    margin-bottom: 10px;
 }
 
-.txt input {
-    width: 100%;
-    margin-top: 2%;
-    padding: 0 5px;
-    height: 50px;
-    font-size: 16px;
-    border: none;
-    background: none;
-    outline: none;
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
 }
 
-.txt label {
-    position: absolute;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    left: 5px;
-    color: #adadad;
-    transform: translateY(-40%);
-    font-size: 16px;
-    pointer-events: none;
-    transition: 0.5s;
+.btn-primary:hover {
+    background-color: #0056b3;
 }
 
-textarea:focus,
-input:focus {
-    color: black;
+.btn-link {
+    color: #007bff;
 }
 
-.txt span::before {
-    top: 45px;
-    left: 0;
-    width: 0%;
-    height: 4px;
-    background: black;
-    transition: 0.5s;
-}
-
-.txt input:focus ~ label,
-.txt input:valid ~ label {
-    top: 0.5%;
-    color: black;
-}
-
-.txt input:focus ~ span::before,
-.txt input:valid ~ span::before {
-    width: 100%;
-}
-
-input[type="submit"] {
-    width: 100%;
-    height: 50px;
-    background: black;
-    border-radius: 20px;
-    font-size: 18px;
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #d9d9d9;
-    transition: 0.8s;
+.btn-link:hover {
+    text-decoration: underline;
 }

@@ -3,6 +3,8 @@
 @section('title', 'News List')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/news.css') }}">
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -42,5 +44,5 @@
             @endforeach
         </div>
     </div>
-    
+
 @endsection
