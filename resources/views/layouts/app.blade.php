@@ -16,6 +16,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="{{ asset('css/default.css') }}">
 </head>
 <body>
     <div id="app">
@@ -26,7 +28,25 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- <ul class="navbar-desktop navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/news">News</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/news/technology">Technology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news/sport">Sport</a>
+                    </li>
+                </ul> -->
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-desktop navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#"></a>
                     </li>
@@ -40,11 +60,6 @@
                         <a class="nav-link" href="/news/sport">Sport</a>
                     </li>
                 </ul>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -85,11 +100,12 @@
                 </div>
             </div>
         </nav>
-
+        @yield('breaking-news')
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    <footer><div>Copyright ©2023 TechNews</div></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

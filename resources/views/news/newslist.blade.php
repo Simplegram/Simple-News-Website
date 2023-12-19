@@ -2,30 +2,32 @@
 
 @section('title', 'News List')
 
-@section('content')
+@section('breaking-news')
 <link rel="stylesheet" href="{{ asset('css/news.css') }}">
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="d-flex justify-content-between align-items-center breaking-news bg-white">
-                    <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                    @php($i = 0)
-                    @foreach ($headline['articles'] as $news)
-                        @if($i == 5) @break
-                        @endif
-                        |
-                        <a href={{ $news['url'] }}>{{ $news['title'] }}</a>
-                        @php($i++)
-                    @endforeach
-                    </marquee>
-                </div>
+<div class="breaking-container">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center breaking-news bg-white">
+                <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                @php($i = 0)
+                @foreach ($headline['articles'] as $news)
+                    @if($i == 5) @break
+                    @endif
+                    |
+                    <a href={{ $news['url'] }}>{{ $news['title'] }}</a>
+                    @php($i++)
+                @endforeach
+                </marquee>
             </div>
         </div>
     </div>
+</div>
+
+@section('content')
+<link rel="stylesheet" href="{{ asset('css/news.css') }}">
     <div class="m-2">
         <h1>News</h1>
-        <div class="row m-2">
+        <div class="news-card row m-2">
             @php($i = 0)
             @foreach ($newsData['articles'] as $news)
                 @if($i == 10) @break
