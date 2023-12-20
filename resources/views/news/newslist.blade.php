@@ -25,7 +25,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/news.css') }}">
-    <div class="m-2">
+    <div class="news-container m-2">
         <h1>News</h1>
         <div class="news-card row m-2">
             @php($i = 0)
@@ -34,7 +34,7 @@
                 @endif
                 <div class="card mb-5">
                     <div class="card-header">
-                        <img style="width: 160px" src={{ $news['urlToImage'] }} alt={{ $news['title'] }}>
+                        <img src={{ $news['urlToImage'] }} alt={{ $news['title'] }}>
                         <a href={{ $news['url'] }}>{{ $news['title'] }}</a>
                     </div>
                     <div class="card-body">

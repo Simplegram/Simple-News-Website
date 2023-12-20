@@ -6,3 +6,17 @@ footer{
     color: white;
     background-color: #007bff;
 }
+
+div#app{
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.content{
+    min-height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}

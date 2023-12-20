@@ -18,10 +18,11 @@ use App\Http\Controllers\NewsController;
 //     return view('home');
 // });
 
+Route::get('/', [NewsController::class, 'load']);
 Route::get('/news', [NewsController::class, 'load']);
 Route::get('/news/technology', [NewsController::class, 'loadTechNews']);
 Route::get('/news/sport', [NewsController::class, 'loadSportNews']);
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
