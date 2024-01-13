@@ -35,8 +35,8 @@
 
 /* Weather Card */
 .weather-card{
-    width: 430px;
-    height: 350px;
+    width: 490px;
+    height: 430px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,11 +45,123 @@
 }
 
 .weather-inside{
-    width: 387px;
-    height: 315px;
+    width: 441px;
+    height: 387px;
     padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-radius: 15px;
     background-color: white;
+}
+
+.weather-inside .title h1{
+    font-size: xx-large;
+}
+
+.weather-inside .title img{
+    width: 30px;
+}
+
+.weather-inside .title .condition{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.weather-inside .title .condition p{
+    margin: 0;
+    font-size: 18px;
+}
+
+.weather-inside .info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.weather-inside .info .temp{
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-inside .info .temp .current{
+    display: flex;
+}
+
+.weather-inside .info .temp h1#temp_c{
+    line-height: 0.9;
+    font-size: 120px;
+}
+
+.weather-inside .info .temp h1#deg{
+    font-size: 30px;
+}
+
+.weather-inside .info .temp p{
+    margin-left: 5px;
+    margin-bottom: 0;
+    font-size: 17px;
+}
+
+.weather-inside .info .index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-inside .info .index .defra-idx{
+    padding: 2px 4px;
+    width: 100%;
+    max-height: 190px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.weather-inside .info .index h1{
+    margin-bottom: 0;
+    font-size: medium;
+}
+
+.weather-inside .info .index p{
+    margin-bottom: 0;
+    width: 200px;
+    height: auto;
+    max-height: 100%;
+    text-align: center;
+    font-size: 13px;
+}
+
+.weather-inside .info .index .graph{
+    display: flex;
+    flex-direction: row;
+}
+
+.weather-inside .info .index .graph p{
+    margin: 0;
+    width: 50px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.weather-inside .update .time{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.weather-inside .update .time h1{
+    margin-bottom: 0;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.weather-inside .update .time p{
+    margin-bottom: 0;
+    font-size: large;
 }
 
 /* News Card List styles */

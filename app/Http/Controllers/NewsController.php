@@ -25,7 +25,7 @@ class NewsController extends Controller
         $user = $this->users->find($value);
         $headline = $this->loadHeadlineJSON($request);
 
-        $query = "Tangerang";
+        $query = "Jakarta";
         $weather = $this->loadWeatherJSON($request, $query);
 
         return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'user' => $user, 'weather' => $weather]);
