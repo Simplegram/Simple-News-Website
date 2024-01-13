@@ -19,10 +19,12 @@ use App\Http\Controllers\NewsController;
 // });
 
 Route::get('/', [NewsController::class, 'load']);
+Route::get('/home', [NewsController::class, 'load']);
 Route::get('/news', [NewsController::class, 'load']);
 Route::get('/news/technology', [NewsController::class, 'loadTechNews']);
 Route::get('/news/sport', [NewsController::class, 'loadSportNews']);
+Route::get('/saved', [NewsController::class, 'loadSavedNews']);
+
+Route::post('/addReadLater', [NewsController::class, 'addReadLater'])->name('addReadLater');
 
 Auth::routes();
-
-// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

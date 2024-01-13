@@ -182,7 +182,8 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     display: grid;
-    grid-template-rows: repeat(auto-fill, 250px);
+    justify-items: stretch;
+    grid-template-rows: repeat(auto-fit, 250px);
 }
 
 .card-header {
@@ -213,6 +214,8 @@
 
 .card-body {
     padding: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-body a {
@@ -223,6 +226,37 @@
 
 .card-body a:hover {
     text-decoration: underline;
+}
+
+form{
+    margin-bottom: 0;
+    justify-self: end;
+    align-self: end;
+}
+
+button{
+    padding: 5px 10px;
+    justify-self: end;
+    align-self: end;
+    color: white;
+    background-color: #007bff;
+    border-style: solid;
+    border-color: #007bff;
+    border-radius: 10px 0 5px 0;
+    border-width: 2px 0 0 2px;
+    font-size: 17.5px;
+    transition: 200ms;
+}
+
+button:hover{
+    color: #007bff;
+    background-color: white;
+}
+
+button:active{
+    color: white;
+    background-color: #007bff;
+    border-color: white;
 }
 
 /* @media screen and (max-width: 395px) 

@@ -10,6 +10,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Articles;
 
 class NewsController extends Controller
 {
@@ -18,6 +19,31 @@ class NewsController extends Controller
     public function __construct()
     {
         $this->users = new User();
+    }
+
+    public function addReadLater(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $articles = new Articles;
+        $articles->userId = $user->id;
+        $articles->imgUrl = $request->input('imgUrl');
+        $articles->url = $request->input('url');
+        $articles->title = $request->input('title');
+        $articles->description = $request->input('desc');
+        $articles->save();
+
+        return load($request);
+    }
+
+    public function loadSavedNews(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+        
+        $headline = $this->loadHeadlineJSON($request);
+        $articles = Articles::all();
+
+        return view('news.newslater', ['savedNews' => $articles, 'headline' => $headline]);
     }
 
     public function returnView(Request $request, $newsData){

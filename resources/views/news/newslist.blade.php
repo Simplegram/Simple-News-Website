@@ -25,7 +25,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/news.css') }}">
-    @dump($weather)
     <div class="weather-container m-2 w-100">
         <h1>Weather</h1>
         <div class="weather-card m-2">
@@ -103,9 +102,21 @@
                         <a href={{ $news['url'] }}>{{ $news['title'] }}</a>
                     </div>
                     <div class="card-body">
-                        {{ $news['description'] }}
+                        <p>{{ $news['description'] }}</p>
                         <a href={{ $news['url'] }}>Read More</a>
                     </div>
+                    @if($news['url'])
+                    <form method="POST" action="{{ route('addReadLater') }}">
+                        @csrf
+                        <input type="hidden" name="imgUrl" value="{{ $news['urlToImage'] }}">
+                        <input type="hidden" name="url" value="{{ $news['url'] }}">
+                        <input type="hidden" name="title" value="{{ $news['title'] }}">
+                        <input type="hidden" name="desc" value="{{ $news['description'] }}">
+                        <button type="submit" href="">Read Later</button>
+                    </form>
+                    @else
+                    <button>Saved</button>
+                    @endif
                 </div>
                 @php($i++)
             @endforeach
