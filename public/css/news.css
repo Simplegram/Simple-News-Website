@@ -33,6 +33,25 @@
     grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
 }
 
+/* Weather Card */
+.weather-card{
+    width: 430px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #BABABA;
+}
+
+.weather-inside{
+    width: 387px;
+    height: 315px;
+    padding: 2%;
+    border-radius: 15px;
+    background-color: white;
+}
+
 /* News Card List styles */
 .news-container{
     min-height: 100dvh;

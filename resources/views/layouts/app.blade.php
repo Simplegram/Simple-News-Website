@@ -69,6 +69,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href=""
+                                       onclick="">
+                                        {{ __('Saved News') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -86,7 +90,7 @@
             </div>
         </nav>
         @yield('breaking-news')
-        <main class="content py-4">
+        <main class="content p-4 d-flex flex-column">
             @yield('content')
         </main>
         <footer><div>Copyright ©2023 TechNews</div></footer>
