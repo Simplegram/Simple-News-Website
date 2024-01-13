@@ -27,64 +27,78 @@
 <link rel="stylesheet" href="{{ asset('css/news.css') }}">
     <div class="weather-container m-2 w-100">
         <h1>Weather</h1>
-        <div class="weather-card m-2">
-            <div class="weather-inside">
-                <div class="title">
-                    <h1>{{ $weather['location']['name'] }}, {{ $weather['location']['region'] }}</h1>
-                    <div class="condition">
-                        <img src="{{ $weather['current']['condition']['icon'] }}">
-                        <p>{{ $weather['current']['condition']['text'] }}</p>
+        <div class="weather-cards">
+            @foreach($all_region as $weather)
+            <div class="weather-card m-2">
+                <div class="weather-inside">
+                    <div class="title">
+                        <h1>{{ $weather['location']['name'] }}, {{ $weather['location']['region'] }}</h1>
+                        <div class="condition">
+                            <img src="{{ $weather['current']['condition']['icon'] }}">
+                            <p>{{ $weather['current']['condition']['text'] }}</p>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="temp">
+                            <div class="current">
+                                <h1 id="temp_c">{{ $weather['current']['temp_c'] }}</h1>
+                                <h1 id="deg">&deg;C</h1>
+                            </div>
+                            <p>Feels like {{ $weather['current']['feelslike_c'] }}&deg;C</p>
+                        </div>
+                        <div class="index">
+                            <h1 style="font-size: large; font-weight: bold; letter-spacing: 4px">Pollution Index</h1>
+                            @if($weather['current']['air_quality']['gb-defra-index'] <= 3)
+                            <div class="defra-idx" style="background-color: #00FF38">
+                                <h1>Low</h1>
+                                <h1>{{ $weather['current']['air_quality']['gb-defra-index'] }}</h1>
+                            </div>
+                            <p>Beraktivitas seperti biasa.</p>
+                            @elseif($weather['current']['air_quality']['gb-defra-index'] <= 6)
+                            <div class="defra-idx" style="background-color: #FFA800">
+                                <h1>Moderate</h1>
+                                {{ $weather['current']['air_quality']['gb-defra-index'] }}
+                            </div>
+                            <p>Beraktivitas seperti biasa. Bagi yang mengidap masalah paru-paru, masalah jantung, kurangi aktivitas di luar ruangan.</p>
+                            @elseif($weather['current']['air_quality']['gb-defra-index'] <= 9)
+                            <div class="defra-idx" style="background-color: #FF0000">
+                                <h1>High</h1>
+                                {{ $weather['current']['air_quality']['gb-defra-index'] }}
+                            </div>
+                            <p>Disarankan untuk mengurangi aktivitas di luar ruangan jika mata perih, batuk, atau radang. Gunakan masker untuk mencegah penghirupan partikulat udara besar.</p>
+                            @elseif($weather['current']['air_quality']['gb-defra-index'] <= 10)
+                            <div class="defra-idx" style="background-color: #BD00FF">
+                                <h1>Very High</h1>
+                                {{ $weather['current']['air_quality']['gb-defra-index'] }}
+                            </div>
+                            <p>Diharuskan untuk mengurangi aktivitas yang di luar ruangan jika batuk atau radang. Gunakan masker untuk mencegah penghirupan partikulat udara besar.</p>
+                            @endif
+                            <div class="graph">
+                                <p class="rating" style="background-color: #00FF38">1-3</p>
+                                <p class="rating" style="background-color: #FFA800">4-6</p>
+                                <p class="rating" style="background-color: #FF0000">7-9</p>
+                                <p class="rating" style="background-color: #BD00FF">10</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="update">
+                        <div></div>
+                        <div class="time">
+                            <h1>Updated At</h1>
+                            <p>{{ $weather['current']['last_updated'] }}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="info">
-                    <div class="temp">
-                        <div class="current">
-                            <h1 id="temp_c">{{ $weather['current']['temp_c'] }}</h1>
-                            <h1 id="deg">&deg;C</h1>
-                        </div>
-                        <p>Feels like {{ $weather['current']['feelslike_c'] }}&deg;C</p>
-                    </div>
-                    <div class="index">
-                        <h1 style="font-size: large; font-weight: bold; letter-spacing: 4px">Pollution Index</h1>
-                        @if($weather['current']['air_quality']['gb-defra-index'] <= 3)
-                        <div class="defra-idx" style="background-color: #00FF38">
-                            <h1>Low</h1>
-                            <h1>{{ $weather['current']['air_quality']['gb-defra-index'] }}</h1>
-                        </div>
-                        <p>Beraktivitas seperti biasa.</p>
-                        @elseif($weather['current']['air_quality']['gb-defra-index'] <= 6)
-                        <div class="defra-idx" style="background-color: #FFA800">
-                            <h1>Moderate</h1>
-                            {{ $weather['current']['air_quality']['gb-defra-index'] }}
-                        </div>
-                        <p>Beraktivitas seperti biasa. Bagi yang mengidap masalah paru-paru, masalah jantung, kurangi aktivitas di luar ruangan.</p>
-                        @elseif($weather['current']['air_quality']['gb-defra-index'] <= 9)
-                        <div class="defra-idx" style="background-color: #FF0000">
-                            <h1>High</h1>
-                            {{ $weather['current']['air_quality']['gb-defra-index'] }}
-                        </div>
-                        <p>Disarankan untuk mengurangi aktivitas di luar ruangan jika mata perih, batuk, atau radang. Gunakan masker untuk mencegah penghirupan partikulat udara besar.</p>
-                        @elseif($weather['current']['air_quality']['gb-defra-index'] <= 10)
-                        <div class="defra-idx" style="background-color: #BD00FF">
-                            <h1>Very High</h1>
-                            {{ $weather['current']['air_quality']['gb-defra-index'] }}
-                        </div>
-                        <p>Diharuskan untuk mengurangi aktivitas yang di luar ruangan jika batuk atau radang. Gunakan masker untuk mencegah penghirupan partikulat udara besar.</p>
-                        @endif
-                        <div class="graph">
-                            <p class="rating" style="background-color: #00FF38">1-3</p>
-                            <p class="rating" style="background-color: #FFA800">4-6</p>
-                            <p class="rating" style="background-color: #FF0000">7-9</p>
-                            <p class="rating" style="background-color: #BD00FF">10</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="update">
-                    <div></div>
-                    <div class="time">
-                        <h1>Updated At</h1>
-                        <p>{{ $weather['current']['last_updated'] }}</p>
-                    </div>
+            </div>
+            @endforeach
+            <div class="weather-card m-2">
+                <div class="weather-new">
+                    <form method="POST" action="{{ route('addRegion') }}">
+                        <h1>Add your own region</h1>
+                        @csrf
+                        <input type="text" name="region">
+                        <button type="submit" href="">Add Weather Region</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -105,7 +119,9 @@
                         <p>{{ $news['description'] }}</p>
                         <a href={{ $news['url'] }}>Read More</a>
                     </div>
-                    @if($news['url'])
+                    @if(in_array($news['url'], $saved))
+                    <button>Saved</button>
+                    @else
                     <form method="POST" action="{{ route('addReadLater') }}">
                         @csrf
                         <input type="hidden" name="imgUrl" value="{{ $news['urlToImage'] }}">
@@ -114,8 +130,6 @@
                         <input type="hidden" name="desc" value="{{ $news['description'] }}">
                         <button type="submit" href="">Read Later</button>
                     </form>
-                    @else
-                    <button>Saved</button>
                     @endif
                 </div>
                 @php($i++)

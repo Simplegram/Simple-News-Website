@@ -10,7 +10,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
-use App\Models\Articles;
+use App\Models\Article;
+use App\Models\Weathers;
 
 class NewsController extends Controller
 {
@@ -21,27 +22,12 @@ class NewsController extends Controller
         $this->users = new User();
     }
 
-    public function addReadLater(Request $request){
-        $value = Auth::id();
-        $user = $this->users->find($value);
-
-        $articles = new Articles;
-        $articles->userId = $user->id;
-        $articles->imgUrl = $request->input('imgUrl');
-        $articles->url = $request->input('url');
-        $articles->title = $request->input('title');
-        $articles->description = $request->input('desc');
-        $articles->save();
-
-        return load($request);
-    }
-
     public function loadSavedNews(Request $request){
         $value = Auth::id();
         $user = $this->users->find($value);
         
         $headline = $this->loadHeadlineJSON($request);
-        $articles = Articles::all();
+        $articles = Article::all();
 
         return view('news.newslater', ['savedNews' => $articles, 'headline' => $headline]);
     }
@@ -51,10 +37,32 @@ class NewsController extends Controller
         $user = $this->users->find($value);
         $headline = $this->loadHeadlineJSON($request);
 
-        $query = "Jakarta";
-        $weather = $this->loadWeatherJSON($request, $query);
+        $saved = Article::all();
+        $newsUrl = [];
 
-        return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'user' => $user, 'weather' => $weather]);
+        foreach($saved as $saved){
+            array_push($newsUrl, $saved['url']);
+        }
+
+        $weathers = Weathers::all();
+        $region = [];
+        $all_region = [];
+
+        foreach($weathers as $weathers){
+            array_push($region, $weathers['region']);
+        }
+
+        if(!$region){
+            $weather = $this->loadWeatherJSON($request, "Jakarta");
+            array_push($all_region, $weather);
+        } else {
+            foreach($region as $region){
+                $weather = $this->loadWeatherJSON($request, $region);
+                array_push($all_region, $weather);
+            }
+        }
+
+        return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'region' => $region, 'all_region' => $all_region, 'saved' => $newsUrl]);
     }
 
     public function loadWeatherJSON(Request $request, String $query){
@@ -159,5 +167,39 @@ class NewsController extends Controller
         $newsData = $this->loadNewsJSON($request, "berita+olahraga");
 
         return $this->returnView($request, $newsData);
+    }
+
+    public function addReadLater(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $articles = new Article;
+        $articles->userId = $user->id;
+        $articles->imgUrl = $request->input('imgUrl');
+        $articles->url = $request->input('url');
+        $articles->title = $request->input('title');
+        $articles->description = $request->input('desc');
+        $articles->save();
+
+        return $this->load($request);
+    }
+
+    public function addRegion(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $region = $request->input('region');
+        $weather = $this->loadWeatherJSON($request, $region);
+
+        if(isset($weather['error'])){
+            echo "<script type='text/javascript'>alert('Region Not Found!');</script>";
+        } else {
+            $weathers = new Weathers;
+            $weathers->userId = $user->id;
+            $weathers->region = $region;
+            $weathers->save();
+        }
+
+        return $this->load($request);
     }
 }

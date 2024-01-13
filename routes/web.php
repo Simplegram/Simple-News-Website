@@ -26,5 +26,6 @@ Route::get('/news/sport', [NewsController::class, 'loadSportNews']);
 Route::get('/saved', [NewsController::class, 'loadSavedNews']);
 
 Route::post('/addReadLater', [NewsController::class, 'addReadLater'])->name('addReadLater');
+Route::post('/addRegion', [NewsController::class, 'addRegion'])->name('addRegion');
 
 Auth::routes();
