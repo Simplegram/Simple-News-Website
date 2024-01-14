@@ -41,7 +41,7 @@
                     <div class="info">
                         <div class="temp">
                             <div class="current">
-                                <h1 id="temp_c">{{ $weather['current']['temp_c'] }}</h1>
+                                <h1 id="temp_c">{{ round($weather['current']['temp_c']) }}</h1>
                                 <h1 id="deg">&deg;C</h1>
                             </div>
                             <p>Feels like {{ $weather['current']['feelslike_c'] }}&deg;C</p>
@@ -82,7 +82,11 @@
                         </div>
                     </div>
                     <div class="update">
-                        <div></div>
+                        <form method="POST" action="{{ route('deleteRegion') }}">
+                            @csrf
+                            <input type="hidden" name="region" value="{{ $weather['location']['name'] }}">
+                            <button type="submit">Remove Region</button>
+                        </form>
                         <div class="time">
                             <h1>Updated At</h1>
                             <p>{{ $weather['current']['last_updated'] }}</p>

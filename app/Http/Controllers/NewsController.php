@@ -27,7 +27,7 @@ class NewsController extends Controller
         $user = $this->users->find($value);
         
         $headline = $this->loadHeadlineJSON($request);
-        $articles = Article::all();
+        $articles = Article::where('userId', $user->id)->get();
 
         return view('news.newslater', ['savedNews' => $articles, 'headline' => $headline]);
     }
@@ -37,32 +37,38 @@ class NewsController extends Controller
         $user = $this->users->find($value);
         $headline = $this->loadHeadlineJSON($request);
 
-        $saved = Article::all();
-        $newsUrl = [];
-
-        foreach($saved as $saved){
-            array_push($newsUrl, $saved['url']);
-        }
-
-        $weathers = Weathers::all();
         $region = [];
         $all_region = [];
+        $newsUrl = [];
 
-        foreach($weathers as $weathers){
-            array_push($region, $weathers['region']);
-        }
+        if($user != null){
+            $saved = Article::where('userId', $user->id)->get();
 
-        if(!$region){
+            foreach($saved as $saved){
+                array_push($newsUrl, $saved['url']);
+            }
+            
+            $weathers = Weathers::where('userId', $user->id)->get();
+
+            foreach($weathers as $weathers){
+                array_push($region, $weathers['region']);
+            }
+
+            if(!$region){
+                $weather = $this->loadWeatherJSON($request, "Jakarta");
+                array_push($all_region, $weather);
+            } else {
+                foreach($region as $region){
+                    $weather = $this->loadWeatherJSON($request, $region);
+                    array_push($all_region, $weather);
+                }
+            }
+        } else {
             $weather = $this->loadWeatherJSON($request, "Jakarta");
             array_push($all_region, $weather);
-        } else {
-            foreach($region as $region){
-                $weather = $this->loadWeatherJSON($request, $region);
-                array_push($all_region, $weather);
-            }
         }
 
-        return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'region' => $region, 'all_region' => $all_region, 'saved' => $newsUrl]);
+        return view('news.newslist', ['newsData' => $newsData, 'headline' => $headline, 'all_region' => $all_region, 'saved' => $newsUrl]);
     }
 
     public function loadWeatherJSON(Request $request, String $query){
@@ -184,6 +190,16 @@ class NewsController extends Controller
         return $this->load($request);
     }
 
+    public function deleteSaved(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $articles = Article::find($request->input('id'));
+        $articles->delete();
+
+        return $this->load($request);
+    }
+
     public function addRegion(Request $request){
         $value = Auth::id();
         $user = $this->users->find($value);
@@ -196,9 +212,19 @@ class NewsController extends Controller
         } else {
             $weathers = new Weathers;
             $weathers->userId = $user->id;
-            $weathers->region = $region;
+            $weathers->region = ucfirst($region);
             $weathers->save();
         }
+
+        return $this->load($request);
+    }
+
+    public function deleteRegion(Request $request){
+        $value = Auth::id();
+        $user = $this->users->find($value);
+
+        $weather = Weathers::where('region', $request->input('region'))->first();
+        $weather->delete();
 
         return $this->load($request);
     }

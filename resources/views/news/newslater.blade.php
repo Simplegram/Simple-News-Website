@@ -26,12 +26,10 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/news.css') }}">
     <div class="news-container m-2 w-100">
-        <h1>News</h1>
+        <h1>Saved News</h1>
         <div class="news-card row m-2">
             @php($i = 0)
             @foreach ($savedNews as $news)
-                @if($i == 10) @break
-                @endif
                 <div class="card mb-5">
                     <div class="card-header">
                         <img src="{{ $news['imgUrl'] }}" alt="">
@@ -41,8 +39,12 @@
                         <p>{{ $news['description'] }}</p>
                         <a href={{ $news['url'] }}>Read More</a>
                     </div>
+                    <form method="POST" action="{{ route('deleteSaved') }}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $news['id'] }}">
+                        <button type="submit">Remove News</button>
+                    </form>
                 </div>
-                @php($i++)
             @endforeach
         </div>
     </div>

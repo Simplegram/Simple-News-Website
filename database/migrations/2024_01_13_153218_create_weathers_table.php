@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('userId');
-            $table->string('region')->unique();
+            $table->string('region');
         });
     }
 
