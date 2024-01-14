@@ -29,7 +29,7 @@
         <h1>Saved News</h1>
         <div class="news-card row m-2">
             @php($i = 0)
-            @foreach ($savedNews as $news)
+            @forelse ($savedNews as $news)
                 <div class="card mb-5">
                     <div class="card-header">
                         <img src="{{ $news['imgUrl'] }}" alt="">
@@ -45,7 +45,9 @@
                         <button type="submit">Remove News</button>
                     </form>
                 </div>
-            @endforeach
+            @empty
+            <h2 style="font-size: 20px">No saved news</h2>
+            @endforelse
         </div>
     </div>
 @endsection
